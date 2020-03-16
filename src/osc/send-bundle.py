@@ -1,10 +1,13 @@
 from pythonosc import udp_client
 from pythonosc import osc_bundle_builder
 from pythonosc import osc_message_builder
+from random import randint
 
 ip = "127.0.0.1"
 port = 5007
-client = udp_client.SimpleUDPClient(addr, port)
+client = udp_client.SimpleUDPClient(ip, port)
+
+channels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"]
 
 def make_message(ctrlName, value):
     msg = osc_message_builder.OscMessageBuilder(address="/control/" + ctrlName)
@@ -13,12 +16,8 @@ def make_message(ctrlName, value):
 
 def send_bundle():
     bundle = osc_bundle_builder.OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
-    bundle.add_content(make_message("a", 512))
-    bundle.add_content(make_message("c", 512))
-    bundle.add_content(make_message("e", 512))
-    bundle.add_content(make_message("n", 512))
-    bundle.add_content(make_message("o", 512))
-    bundle.add_content(make_message("p", 512))
+    for c in channels:
+        bundle.add_content(make_message(c, randint(0, 1024)))
     sub_bundle = bundle.build()
     bundle.add_content(sub_bundle)
     bundle = bundle.build()
