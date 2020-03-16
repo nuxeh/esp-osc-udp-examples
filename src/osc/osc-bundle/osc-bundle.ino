@@ -31,6 +31,11 @@ int MUXPinS1 = 0;
 int MUXPinS2 = 15;
 int MUXPinS3 = 13;
 
+// Control names for OSC paths
+// One is used for each of the controls 0-16
+// Pure data, at least, certainly gets confused about types when using integers
+char controlNames[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'};
+
 // Current values of the analogue inputs
 int currentValues[16] = {0};
 

@@ -36,7 +36,8 @@ int MUXPinS2 = 15;
 int MUXPinS3 = 13;
 
 // Control names for OSC paths
-// Pure data certainly gets confused about types when using integers
+// One is used for each of the controls 0-16
+// Pure data, at least, certainly gets confused about types when using integers
 char controlNames[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'};
 
 // Dead band threshold for simple hysteresis
@@ -107,7 +108,7 @@ int getAnalog(int MUXyPin) {
 }
 
 // Construct and send a UDP packet for one control
-void send_osc_msg(char controlId, int currentValue) {
+void send_osc_message(char controlId, int currentValue) {
   // Serial debug
   Serial.print("sending OSC control ");
   Serial.print(controlId);
@@ -115,7 +116,7 @@ void send_osc_msg(char controlId, int currentValue) {
   Serial.println(currentValue);
 
   // Create message object with control's path
-  OSCMessage msg("/control/".concat(controlNames[controlId]));
+  OSCMessage msg("/control/" + controlNames[controlId]);
   msg.add((int32_t)currentValue);
 
   // Send UDP frame
@@ -131,7 +132,7 @@ void check_and_send_osc_msg(char controlId, int currentValue) {
 
   // check if the current value is outside the deadzone
   if (abs(prevValue - currentValue) > deadZoneThreshold) {
-    send_udp_packet(controlId, currentValue);
+    send_osc_message(controlId, currentValue);
   }
 
   // update the current value
