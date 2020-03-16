@@ -1,6 +1,11 @@
 /*---------------------------------------------------------------------------------------------
   Send plain UDP messages for analog inputs
 
+  Send value changes only, using a very basic method of hysteresis to avoid
+  noise. This method uses less network bandwidth, and has better latency, since
+  messages are transmitted when appropriate, rather than after waiting for a poll
+  interval to elapse.
+
   Multiplexing example over serial:
   https://kevinsaye.wordpress.com/2018/01/07/adding-a-16-channel-multiplexor-to-your-esp8266-using-arduino/
 
@@ -47,9 +52,10 @@ int deadZoneThreshold = 10;
 int currentValues[16] = {0};
 
 void setup() {
+  // Start serial
   Serial.begin(115200);
 
-  // Mux pins
+  // Configure mux pins
   pinMode(MUXPinS0, OUTPUT);
   pinMode(MUXPinS1, OUTPUT);
   pinMode(MUXPinS2, OUTPUT);
@@ -61,17 +67,16 @@ void setup() {
   Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, pass);
-
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
   Serial.println("");
-
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
+  // Start UDP
   Udp.begin(localPort);
 }
 
@@ -79,19 +84,12 @@ void loop() {
   for (char i = 0; i < 16; i++) {
     int value = getAnalog(i); // get the current value of control i
 
-    // serial debug
-    Serial.print(value);
-    Serial.print(" ");
-
     // check if the control value has changed enough, and send a packet if
     // necessary.
     check_and_send_packet(i, value);
 
     delay(10);
   }
-
-  Serial.print(" ");
-  delay(1000);
 }
 
 // Get a 10-bit integer for the mux input
@@ -111,11 +109,19 @@ int getAnalog(int MUXyPin) {
 void send_udp_packet(char controlId, int currentValue) {
   char udpPacket[4] = {0};
 
+  // serial debug
+  Serial.print("sending control ");
+  Serial.print(controlId);
+  Serial.print(": ");
+  Serial.println(currentValue);
+
+  // Construct packet
   udpPacket[0] = controlId;           // id
   udpPacket[1] = currentValue >> 8;   // high byte
   udpPacket[2] = currentValue & 0xFF; // low byte
   udpPacket[3] = '\0';                // Null terminator character
 
+  // Send packet
   Udp.beginPacket(outIp, outPort); // begin UDP packet
   Udp.write(udpPacket);            // write UDP packet
   Udp.endPacket();                 // end UDP Packet
