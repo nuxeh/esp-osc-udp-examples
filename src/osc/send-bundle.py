@@ -2,6 +2,7 @@ from pythonosc import udp_client
 from pythonosc import osc_bundle_builder
 from pythonosc import osc_message_builder
 from random import randint
+from time import sleep
 
 ip = "127.0.0.1"
 port = 5007
@@ -24,4 +25,7 @@ def send_bundle():
 
     client.send(bundle)
 
-send_bundle()
+for i in range(0, 20):
+    send_bundle()
+    print("sent OSC bundle " + str(i))
+    sleep(0.1)
