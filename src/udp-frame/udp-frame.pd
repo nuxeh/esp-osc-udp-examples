@@ -1,0 +1,117 @@
+#N canvas 884 210 1020 673 12;
+#X obj 104 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 124 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 144 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 164 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 184 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 204 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 224 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 244 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 264 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 284 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 304 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 324 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 344 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 364 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 384 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 404 501 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 551 19 loadbang;
+#X obj 529 269 netsend -b -u;
+#X obj 529 19 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 157 195 list split 2;
+#X obj 157 285 unpack i i, f 21;
+#X obj 41 255 list append, f 15;
+#X obj 125 225 del;
+#X msg 542 114 send 0 0 0 255 1 0 1 255 2 0 2 255 3 0 3 255 0 0 0 255
+1 0 1 255 2 0 2 255 3 0 3 255;
+#X obj 345 390 int;
+#X obj 380 390 + 1;
+#X obj 345 365 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 370 361 0;
+#X obj 104 460 route 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15;
+#X obj 104 430 pack i i;
+#X obj 157 315 expr ($i1 << 8) + $i2;
+#X msg 543 166 send 0 255 1 255 0 255 1 255 0 255 1 255 0 255 1 255
+0 255 1 255 0 255 1 255 0 255 1 255 0 255 1 255;
+#X msg 543 211 send 0 255 3 255 3 255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 255;
+#X obj 370 128 t;
+#X text 68 308 Re-scale to;
+#X text 47 325 10-bit integer;
+#X obj 157 165 list append, f 15;
+#X obj 137 108 del;
+#X text 227 375 Control counter;
+#X text 379 339 Reset;
+#X text 180 233 Split each control's;
+#X text 180 250 pair of bytes in sequence;
+#X text 540 87 Test frames;
+#X text 67 155 Store until;
+#X text 67 172 count reset;
+#X obj 345 420 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 9 256;
+#X text 25 20 UDP frame receiver - Receive a frame with 2 bytes per
+control representing a 10-bit integer value;
+#X obj 157 78 netreceive -u -b 5006;
+#X msg 529 49 connect localhost 5006;
+#X connect 16 0 48 0;
+#X connect 18 0 48 0;
+#X connect 19 0 22 0;
+#X connect 19 0 20 0;
+#X connect 19 1 21 1;
+#X connect 20 0 30 0;
+#X connect 20 1 30 1;
+#X connect 21 0 19 0;
+#X connect 22 0 21 0;
+#X connect 23 0 17 0;
+#X connect 24 0 25 0;
+#X connect 24 0 29 0;
+#X connect 24 0 45 0;
+#X connect 25 0 24 1;
+#X connect 26 0 24 0;
+#X connect 27 0 24 1;
+#X connect 28 0 0 0;
+#X connect 28 1 1 0;
+#X connect 28 2 2 0;
+#X connect 28 3 3 0;
+#X connect 28 4 4 0;
+#X connect 28 5 5 0;
+#X connect 28 6 6 0;
+#X connect 28 7 7 0;
+#X connect 28 8 8 0;
+#X connect 28 9 9 0;
+#X connect 28 10 10 0;
+#X connect 28 11 11 0;
+#X connect 28 12 12 0;
+#X connect 28 13 13 0;
+#X connect 28 14 14 0;
+#X connect 28 15 15 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 1;
+#X connect 30 0 26 0;
+#X connect 31 0 17 0;
+#X connect 32 0 17 0;
+#X connect 33 0 27 0;
+#X connect 33 0 36 0;
+#X connect 36 0 19 0;
+#X connect 37 0 33 0;
+#X connect 47 0 36 1;
+#X connect 47 0 37 0;
+#X connect 48 0 17 0;

@@ -1,0 +1,78 @@
+#N canvas 446 384 600 457 12;
+#X msg 399 59 connect localhost 5005;
+#X obj 27 58 netreceive -u -b 5005;
+#X obj 27 93 unpack i i i, f 19;
+#X obj 37 225 print ctrl;
+#X obj 139 175 +;
+#X obj 48 139 expr $i1 << 8;
+#X obj 27 255 route 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15;
+#X obj 27 195 pack i i;
+#X obj 27 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 47 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 67 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 87 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 107 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 127 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 147 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 167 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 187 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 207 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 227 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 247 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 267 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 287 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 307 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 327 296 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 421 29 loadbang;
+#X obj 399 201 netsend -b -u;
+#X obj 399 29 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 483 165 send 0 2 0;
+#X msg 483 135 send 0 0 0;
+#X text 470 97 Test messages;
+#X text 26 20 Plain UDP packets containing control values;
+#X connect 0 0 25 0;
+#X connect 1 0 2 0;
+#X connect 2 0 7 0;
+#X connect 2 1 5 0;
+#X connect 2 2 4 1;
+#X connect 4 0 7 1;
+#X connect 5 0 4 0;
+#X connect 6 0 8 0;
+#X connect 6 1 9 0;
+#X connect 6 2 10 0;
+#X connect 6 3 11 0;
+#X connect 6 4 12 0;
+#X connect 6 5 13 0;
+#X connect 6 6 14 0;
+#X connect 6 7 15 0;
+#X connect 6 8 16 0;
+#X connect 6 9 17 0;
+#X connect 6 10 18 0;
+#X connect 6 11 19 0;
+#X connect 6 12 20 0;
+#X connect 6 13 21 0;
+#X connect 6 14 22 0;
+#X connect 6 15 23 0;
+#X connect 7 0 6 0;
+#X connect 7 0 3 0;
+#X connect 24 0 0 0;
+#X connect 26 0 0 0;
+#X connect 27 0 25 0;
+#X connect 28 0 25 0;

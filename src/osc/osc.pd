@@ -1,0 +1,91 @@
+#N canvas 316 362 791 476 12;
+#X obj 36 93 oscparse;
+#X obj 36 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 56 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 6350 1;
+#X obj 76 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 12700 1;
+#X obj 96 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 116 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 136 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 156 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 176 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 196 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 216 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 236 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 256 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 276 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 296 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 316 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 336 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 439 24 loadbang;
+#X obj 417 312 netsend -b -u;
+#X obj 417 24 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 507 122 0;
+#X msg 557 122 512;
+#X obj 447 252 list prepend send;
+#X obj 447 282 list trim;
+#X msg 617 122 1024;
+#X msg 677 122 0;
+#X msg 727 122 512;
+#X obj 36 123 list trim;
+#X obj 36 191 route control;
+#X msg 447 122 1024;
+#X obj 36 221 route a b c d e f g h i j k l m n o;
+#X obj 447 162 oscformat /control/b;
+#X obj 617 162 oscformat /control/c;
+#X text 21 16 Receive OSC controls over UDP;
+#X text 450 87 Test messages;
+#X text 533 282 Trim "list";
+#X obj 49 153 print received;
+#X obj 36 63 netreceive -u -b 5007;
+#X msg 417 54 connect localhost 5007;
+#X connect 0 0 27 0;
+#X connect 17 0 38 0;
+#X connect 19 0 38 0;
+#X connect 20 0 31 0;
+#X connect 21 0 31 0;
+#X connect 22 0 23 0;
+#X connect 23 0 18 0;
+#X connect 24 0 32 0;
+#X connect 25 0 32 0;
+#X connect 26 0 32 0;
+#X connect 27 0 28 0;
+#X connect 27 0 36 0;
+#X connect 28 0 30 0;
+#X connect 29 0 31 0;
+#X connect 30 0 1 0;
+#X connect 30 1 2 0;
+#X connect 30 2 3 0;
+#X connect 30 3 4 0;
+#X connect 30 4 5 0;
+#X connect 30 5 6 0;
+#X connect 30 6 7 0;
+#X connect 30 7 8 0;
+#X connect 30 8 9 0;
+#X connect 30 9 10 0;
+#X connect 30 10 11 0;
+#X connect 30 11 12 0;
+#X connect 30 12 13 0;
+#X connect 30 13 14 0;
+#X connect 30 14 15 0;
+#X connect 30 15 16 0;
+#X connect 31 0 22 0;
+#X connect 32 0 22 0;
+#X connect 37 0 0 0;
+#X connect 38 0 18 0;
