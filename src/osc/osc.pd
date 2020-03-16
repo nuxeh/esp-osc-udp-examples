@@ -1,15 +1,15 @@
-#N canvas 316 362 791 476 12;
+#N canvas 106 239 791 476 12;
 #X obj 36 93 oscparse;
 #X obj 36 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
-#X obj 56 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 6350 1;
+#X obj 56 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
 #X obj 76 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 12700 1;
+-1 -1 6350 1;
 #X obj 96 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 116 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 6350 1;
 #X obj 136 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 156 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
@@ -27,9 +27,9 @@
 #X obj 276 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 296 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 6350 1;
 #X obj 316 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 6350 1;
 #X obj 336 308 vsl 15 128 0 1024 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 0 1;
 #X obj 439 24 loadbang;
@@ -55,6 +55,8 @@
 #X obj 49 153 print received;
 #X obj 36 63 netreceive -u -b 5007;
 #X msg 417 54 connect localhost 5007;
+#X obj 303 83 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
 #X connect 0 0 27 0;
 #X connect 17 0 38 0;
 #X connect 19 0 38 0;
@@ -88,4 +90,5 @@
 #X connect 31 0 22 0;
 #X connect 32 0 22 0;
 #X connect 37 0 0 0;
+#X connect 37 0 39 0;
 #X connect 38 0 18 0;
