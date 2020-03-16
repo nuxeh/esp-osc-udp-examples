@@ -3,12 +3,15 @@
 
   Send an OSC bundle containing all values after a poll interval has elapsed.
 
-  Multiplexing example over serial:
-  https://kevinsaye.wordpress.com/2018/01/07/adding-a-16-channel-multiplexor-to-your-esp8266-using-arduino/
+  The reading from analogue controls is sent over OSC as a 32-bit integer
+  message parameter, in messages packed into a single OSC bundle.
 
-  This example coerces the raw integer reading from the ADC to a float, here we
-  keep the ADC reading as an integer and transmit that value as integers over
-  OSC.
+  Control paths are, for example:
+  - /control/a
+  - /control/b
+  - /control/c
+  - /control/d
+  etc.
   --------------------------------------------------------------------------------------------- */
 
 #include <ESP8266WiFi.h>

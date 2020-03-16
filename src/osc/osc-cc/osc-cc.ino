@@ -2,16 +2,19 @@
   Send OSC messages for analog inputs, with hysteresis
 
   Send value changes only using a very basic method of hysteresis to avoid
-  noise. This method uses less network bandwidth, and has better latency, since
-  messages are transmitted when appropriate, rather than after waiting for a poll
-  interval to elapse.
+  analogue noise. This method uses less network bandwidth, and has better
+  latency, since messages are transmitted when appropriate, rather than after
+  waiting for a poll interval to elapse.
 
-  Multiplexing example over serial:
-  https://kevinsaye.wordpress.com/2018/01/07/adding-a-16-channel-multiplexor-to-your-esp8266-using-arduino/
+  The reading from analogue controls is sent over OSC as a 32-bit integer
+  message parameter.
 
-  This example coerces the raw integer reading from the ADC to a float, here we
-  keep the ADC reading as an integer and transmit that value as an integer over
-  OSC.
+  Control paths are, for example:
+  - /control/a
+  - /control/b
+  - /control/c
+  - /control/d
+  etc.
   --------------------------------------------------------------------------------------------- */
 
 #include <ESP8266WiFi.h>

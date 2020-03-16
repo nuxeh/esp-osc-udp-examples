@@ -1,19 +1,18 @@
 /*---------------------------------------------------------------------------------------------
-  Send UDP frames for analog inputs, polling
+  Send plain UDP frames for analog inputs, polling
 
   Send a UDP frame containing all values after a poll interval has elapsed.
 
-  Multiplexing example over serial:
-  https://kevinsaye.wordpress.com/2018/01/07/adding-a-16-channel-multiplexor-to-your-esp8266-using-arduino/
+  Each control has two bytes in the frame sent in order to transmit 10-bit
+  values.
 
-  This example coerces the raw integer reading from the ADC to a float, here we
-  keep the ADC reading as an integer and transmit that value as integers over
-  OSC.
+  Byte
+  1 - high byte of controller value
+  2 - low byte of controller value
   --------------------------------------------------------------------------------------------- */
 
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#include <OSCBundle.h>
 
 WiFiUDP Udp; // A UDP instance to let us send and receive packets over UDP
 
