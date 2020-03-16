@@ -88,6 +88,7 @@ void loop() {
     // necessary.
     check_and_send_packet(i, value);
 
+    // Throttle
     delay(10);
   }
 }
@@ -109,8 +110,8 @@ int getAnalog(int MUXyPin) {
 void send_udp_packet(char controlId, int currentValue) {
   char udpPacket[4] = {0};
 
-  // serial debug
-  Serial.print("sending control ");
+  // Serial debug
+  Serial.print("sending UDP control ");
   Serial.print(controlId);
   Serial.print(": ");
   Serial.println(currentValue);

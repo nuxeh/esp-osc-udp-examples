@@ -16,6 +16,7 @@
 
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
+#include <OSCMessage.h>
 
 WiFiUDP Udp; // A UDP instance to let us send and receive packets over UDP
 
@@ -33,6 +34,10 @@ int MUXPinS0 = 16;
 int MUXPinS1 = 0;
 int MUXPinS2 = 15;
 int MUXPinS3 = 13;
+
+// Control names for OSC paths
+// Pure data certainly gets confused about types when using integers
+char controlNames[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
 
 // Dead band threshold for simple hysteresis
 // The analogue value needs to change more than this value to trigger sending a
@@ -79,19 +84,13 @@ void loop() {
   for (char i = 0; i < 16; i++) {
     int value = getAnalog(i); // get the current value of control i
 
-    // serial debug
-    Serial.print(value);
-    Serial.print(" ");
-
     // check if the control value has changed enough, and send a packet if
     // necessary.
     check_and_send_osc_msg(i, value);
 
+    // Throttle
     delay(10);
   }
-
-  Serial.print(" ");
-  delay(1000);
 }
 
 // Get a 10-bit integer for the mux input
@@ -109,16 +108,18 @@ int getAnalog(int MUXyPin) {
 
 // Construct and send a UDP packet for one control
 void send_osc_msg(char controlId, int currentValue) {
-  char udpPacket[4] = {0};
+  // Serial debug
+  Serial.println("sending OSC control " + controlId + ": " + currentValue);
 
-  udpPacket[0] = controlId;           // id
-  udpPacket[1] = currentValue >> 8;   // high byte
-  udpPacket[2] = currentValue & 0xFF; // low byte
-  udpPacket[3] = '\0';                // Null terminator character
+  // Create message object with control's path
+  OSCMessage msg("/control/".concat(controlNames[controlId]));
+  msg.add("hello, osc.");
 
-  Udp.beginPacket(outIp, outPort); // begin UDP packet
-  Udp.write(udpPacket);            // write UDP packet
-  Udp.endPacket();                 // end UDP Packet
+  // Send UDP frame
+  Udp.beginPacket(outIp, outPort);
+  msg.send(Udp);
+  Udp.endPacket();
+  msg.empty();
 }
 
 // Check if the current value is over the threshold, and if it is, send a packet.

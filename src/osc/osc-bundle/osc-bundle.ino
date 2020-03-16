@@ -70,7 +70,7 @@ void loop() {
   for (char i = 0; i < 16; i++) {
     int value = getAnalog(i); // get the current value of control i
 
-    // serial debug
+    // Serial debug
     Serial.print(value);
     Serial.print(" ");
 
@@ -84,7 +84,10 @@ void loop() {
   // Send OSC bundle
   send_bundle(i, value);
 
+  // Serial debug
   Serial.println("");
+
+  // Poll delay
   delay(pollPeriod);
 }
 
