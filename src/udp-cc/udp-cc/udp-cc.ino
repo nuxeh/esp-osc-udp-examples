@@ -128,7 +128,7 @@ void send_udp_packet(char controlId, int currentValue) {
   Udp.endPacket();                 // end UDP Packet
 }
 
-// Check if the current value is over the threshold, and if it is, send a packet.
+// Check if the current value is over the threshold, and if it is, send packet.
 void check_and_send_packet(char controlId, int currentValue) {
   int prevValue = currentValues[controlId];
 

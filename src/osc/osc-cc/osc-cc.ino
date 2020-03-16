@@ -37,7 +37,7 @@ int MUXPinS3 = 13;
 
 // Control names for OSC paths
 // Pure data certainly gets confused about types when using integers
-char controlNames[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
+char controlNames[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'};
 
 // Dead band threshold for simple hysteresis
 // The analogue value needs to change more than this value to trigger sending a
@@ -109,11 +109,14 @@ int getAnalog(int MUXyPin) {
 // Construct and send a UDP packet for one control
 void send_osc_msg(char controlId, int currentValue) {
   // Serial debug
-  Serial.println("sending OSC control " + controlId + ": " + currentValue);
+  Serial.print("sending OSC control ");
+  Serial.print(controlId);
+  Serial.print(": ");
+  Serial.println(currentValue);
 
   // Create message object with control's path
   OSCMessage msg("/control/".concat(controlNames[controlId]));
-  msg.add("hello, osc.");
+  msg.add((int32_t)currentValue);
 
   // Send UDP frame
   Udp.beginPacket(outIp, outPort);
