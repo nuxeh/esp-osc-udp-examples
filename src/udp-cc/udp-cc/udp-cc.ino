@@ -55,6 +55,7 @@ int currentValues[16] = {0};
 void setup() {
   // Start serial
   Serial.begin(115200);
+  Serial.println("UDP control change");
 
   // Configure mux pins
   pinMode(MUXPinS0, OUTPUT);
