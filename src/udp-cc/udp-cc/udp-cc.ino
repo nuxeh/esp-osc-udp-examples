@@ -24,11 +24,12 @@
 
 WiFiUDP Udp; // A UDP instance to let us send and receive packets over UDP
 
-// Arduino IP
+// WIFI
 //IPAddress ip(999, 999, 99, 999); // put actual ip here
 char ssid[] = "*********";         // your network SSID (name)
 char pass[] = "********";          // your network password
 
+// Network
 const IPAddress outIp(999, 999, 99, 999); // remote IP of your computer
 const unsigned int outPort = 9999;        // remote port to receive OSC
 const unsigned int localPort = 8888;      // local port to listen for OSC

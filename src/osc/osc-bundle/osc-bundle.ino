@@ -13,14 +13,15 @@
 
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
+#include <OSCBundle.h>
 
 WiFiUDP Udp; // A UDP instance to let us send and receive packets over UDP
 
-// Arduino IP
-//IPAddress ip(999, 999, 99, 999); // put actual ip here
+// WIFI
 char ssid[] = "*********";         // your network SSID (name)
 char pass[] = "********";          // your network password
 
+// Network
 const IPAddress outIp(999, 999, 99, 999); // remote IP of your computer
 const unsigned int outPort = 9999;        // remote port to receive OSC
 const unsigned int localPort = 8888;      // local port to listen for OSC
@@ -35,9 +36,6 @@ int MUXPinS3 = 13;
 // One is used for each of the controls 0-16
 // Pure data, at least, certainly gets confused about types when using integers
 char controlNames[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'};
-
-// Current values of the analogue inputs
-int currentValues[16] = {0};
 
 // Poll period (milliseconds)
 int pollPeriod = 1000;
@@ -72,25 +70,31 @@ void setup() {
 }
 
 void loop() {
+  // Create a new bundle object
+  OSCBundle bundle;
+
   for (char i = 0; i < 16; i++) {
-    int value = getAnalog(i); // get the current value of control i
+    int value = getAnalog(i); // Get the current analogue value of control i
 
     // Serial debug
     Serial.print(value);
     Serial.print(" ");
 
-    // Set value
-    currentValue[i] = value;
+    // Add a message for this control to the bundle, with 32-bit int parameter
+    bundle.add("/control/" + controlNames[i]).add((int32_t)value);
 
     // Throttle
     delay(10);
   }
 
-  // Send OSC bundle
-  send_bundle(i, value);
-
   // Serial debug
   Serial.println("");
+
+  // Send the bundle over UDP
+  Udp.beginPacket(outIp, outPort); // Start of UDP packet
+  bundle.send(Udp);                // send the OSC frame over UDP
+  Udp.endPacket();                 // End of UDP packet 
+  bundle.empty();                  // may not be necessary
 
   // Poll delay
   delay(pollPeriod);
