@@ -38,11 +38,6 @@ int MUXPinS1 = 0;
 int MUXPinS2 = 15;
 int MUXPinS3 = 13;
 
-// Control names for OSC paths
-// One is used for each of the controls 0-16
-// Pure data, at least, certainly gets confused about types when using integers
-char controlNames[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'};
-
 // Dead band threshold for simple hysteresis
 // The analogue value needs to change more than this value to trigger sending a
 // message for that control. This eliminates unnecessary sending of messages
@@ -119,8 +114,62 @@ void send_osc_message(char controlId, int currentValue) {
   Serial.print(": ");
   Serial.println(currentValue);
 
+  // Create message
+  OSCMessage msg;
+
   // Create message object with control's path
-  OSCMessage msg("/control/" + controlNames[controlId]);
+  switch (controlId) {
+    case 0:
+      msg = OSCMessage("/control/a");
+      break;
+    case 1:
+      msg = OSCMessage("/control/b");
+      break;
+    case 2:
+      msg = OSCMessage("/control/c");
+      break;
+    case 3:
+      msg = OSCMessage("/control/d");
+      break;
+    case 4:
+      msg = OSCMessage("/control/e");
+      break;
+    case 5:
+      msg = OSCMessage("/control/f");
+      break;
+    case 6:
+      msg = OSCMessage("/control/g");
+      break;
+    case 7:
+      msg = OSCMessage("/control/h");
+      break;
+    case 8:
+      msg = OSCMessage("/control/i");
+      break;
+    case 9:
+      msg = OSCMessage("/control/j");
+      break;
+    case 10:
+      msg = OSCMessage("/control/k");
+      break;
+    case 11:
+      msg = OSCMessage("/control/l");
+      break;
+    case 12:
+      msg = OSCMessage("/control/m");
+      break;
+    case 13:
+      msg = OSCMessage("/control/n");
+      break;
+    case 14:
+      msg = OSCMessage("/control/o");
+      break;
+    case 15:
+      msg = OSCMessage("/control/p");
+      break;
+  }
+
+  // Add parameter
   msg.add((int32_t)currentValue);
 
   // Send UDP frame

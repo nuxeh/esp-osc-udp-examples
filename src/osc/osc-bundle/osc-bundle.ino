@@ -35,11 +35,6 @@ int MUXPinS1 = 0;
 int MUXPinS2 = 15;
 int MUXPinS3 = 13;
 
-// Control names for OSC paths
-// One is used for each of the controls 0-16
-// Pure data, at least, certainly gets confused about types when using integers
-char controlNames[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'};
-
 // Poll period (milliseconds)
 int pollPeriod = 1000;
 
@@ -77,6 +72,7 @@ void loop() {
   // Create a new bundle object
   OSCBundle bundle;
 
+  // Get all analogue values in turn
   for (char i = 0; i < 16; i++) {
     int value = getAnalog(i); // Get the current analogue value of control i
 
@@ -85,7 +81,56 @@ void loop() {
     Serial.print(" ");
 
     // Add a message for this control to the bundle, with 32-bit int parameter
-    bundle.add("/control/" + controlNames[i]).add((int32_t)value);
+    switch (i) {
+      case 0:
+        bundle.add("/control/a").add((int32_t)value);
+        break;
+      case 1:
+        bundle.add("/control/b").add((int32_t)value);
+        break;
+      case 2:
+        bundle.add("/control/c").add((int32_t)value);
+        break;
+      case 3:
+        bundle.add("/control/d").add((int32_t)value);
+        break;
+      case 4:
+        bundle.add("/control/e").add((int32_t)value);
+        break;
+      case 5:
+        bundle.add("/control/f").add((int32_t)value);
+        break;
+      case 6:
+        bundle.add("/control/g").add((int32_t)value);
+        break;
+      case 7:
+        bundle.add("/control/h").add((int32_t)value);
+        break;
+      case 8:
+        bundle.add("/control/i").add((int32_t)value);
+        break;
+      case 9:
+        bundle.add("/control/j").add((int32_t)value);
+        break;
+      case 10:
+        bundle.add("/control/k").add((int32_t)value);
+        break;
+      case 11:
+        bundle.add("/control/l").add((int32_t)value);
+        break;
+      case 12:
+        bundle.add("/control/m").add((int32_t)value);
+        break;
+      case 13:
+        bundle.add("/control/n").add((int32_t)value);
+        break;
+      case 14:
+        bundle.add("/control/o").add((int32_t)value);
+        break;
+      case 15:
+        bundle.add("/control/p").add((int32_t)value);
+        break;
+    }
 
     // Throttle
     delay(10);
