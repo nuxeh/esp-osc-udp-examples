@@ -21,8 +21,8 @@
 WiFiUDP Udp; // A UDP instance to let us send and receive packets over UDP
 
 // WIFI
-char ssid[] = "*********";         // your network SSID (name)
-char pass[] = "********";          // your network password
+char ssid[] = "*********"; // your network SSID (name)
+char pass[] = "********";  // your network password
 
 // Network
 const IPAddress outIp(999, 999, 99, 999); // remote IP of your computer
